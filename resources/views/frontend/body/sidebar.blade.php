@@ -39,7 +39,7 @@
                                     </li>
                                     <li>
                                         <i class="ti-comments-smiley"></i>
-                                        <a href="messages.html" title="">Messages</a>
+                                        <a href="{{route('chat.index')}}" title="">Messages</a>
                                     </li>
                                     <li>
                                         <i class="ti-bell"></i>

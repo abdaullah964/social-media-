@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comment', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('userid');
-            $table->unsignedBigInteger('postid');
+            $table->unsignedBigInteger('postid')->nullable();
             $table->string('content');
             $table->timestamps();
             $table->foreign('userid')->references('id')->on('users')->onDelete('cascade');

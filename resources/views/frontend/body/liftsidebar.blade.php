@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <i class="fa fa-users"></i>
-                    <a href="timeline-groups.html" title="">groups</a>
+                    <a href="{{route('group.index')}}" title="">groups</a>
                 </li>
                 <li>
                     <i class="ti-image"></i>
@@ -33,7 +33,7 @@
                 </li>
                 <li>
                     <i class="ti-comments-smiley"></i>
-                    <a href="messages.html" title="">Messages</a>
+                    <a href="{{route('chat.index',['userid' => Auth::user()->id ])}}" title="">Messages</a>
                 </li>
                 <li>
                     <i class="ti-bell"></i>

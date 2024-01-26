@@ -31,11 +31,30 @@ class HomeController extends Controller
         return view('frontend.profile', compact('profile') );
     }
     public function friends($userid){
-        
+
         $profile=User::where('id',$userid)->with('posts')->first();
 
         return view('frontend.friends', compact('profile') );
     }
+
+    public function chat($userid){
+
+        $profile=User::where('id',$userid)->with('posts')->first();
+        $currentUser = auth()->user();
+
+       $users= User::where('id', '!=', $currentUser->id)->get();
+
+        return view('frontend.chat', compact('profile','users') );
+    }
+
+    /*
+    public function chatwith($userid){
+
+        $profile=User::where('id',$userid)->with('posts')->first();
+
+        return view('frontend.chatwith', compact('profile') );
+    }
+    */
     public function updateprofileImage(request $request){
         // dd($request->all());
         $profile=User::where('id',$request->id)->first();

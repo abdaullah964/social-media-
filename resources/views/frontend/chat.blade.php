@@ -1,5 +1,6 @@
 @php
     use App\Models\User;
+
 @endphp
 @extends('frontend.main_master')
 @section('header')
@@ -113,89 +114,44 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="row" id="page-contents">
-@include('frontend.body.rightsidebar') <!--here -->
+@include('frontend.body.rightsidebar')
+
+
 
 <div class="col-lg-6">
     <div class="central-meta">
-        <div class="frnds">
-            <ul class="nav nav-tabs">
-                 <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">My Friends</a>{{-- <span>55</span>--}} </li>
-                 <li class="nav-item"><a class="" href="#frends-req" data-toggle="tab">Friend Requests</a>{{--<span>60</span> --}}</li>
-            </ul>
+        <div class="messages">
+            <h5 class="f-title"><i class="ti-bell"></i>All Messages <span class="more-options"><i class="fa fa-ellipsis-h"></i></span></h5>
+            <div class="message-box">
+                <ul class="peoples">
+@foreach ($users as $user)
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div class="tab-pane active fade show " id="frends" >
-                <ul class="nearby-contct">
-                    @if ($profile->friends !== null)
-                    @foreach ($profile->friends as $key )
-                    @if ($key['status'] == 'pending' )
-                    @else
-                    @php
-                        $user=User::find($key['userid']);
-                    @endphp
-                        <li>
-                            <div class="nearly-pepls">
-                        <figure>
-                            <a href="time-line.html" title=""><img src="{{asset('images/'. $user->profile_image)}}" alt=""></a>
-                        </figure>
-                        <div class="pepl-info">
-                            <h4><a href="time-line.html" title="">{{$user->name}}</a></h4>
-                            <span>{{$user->email}}</span>
-                            <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $user->id]) }}" title="" class="add-butn more-action" data-ripple="">unfriend</a>
-                            {{-- <a href="#" title="" class="add-butn" data-ripple="">add friend</a> --}}
-                        </div>
-                    </div>
-                </li>
-                @endif
-                 @endforeach
-                @endif
+<li>
+    <a href="{{ route('chat_with',$user->uuid) }}">
+        <figure>
+            <img src="{{$user->profile_image}}" alt="">
+            <span class="status f-online"></span>
+        </figure>
+        <div class="people-name">
+            <span>{{$user->name}}</span>
+        </div>
+    </a>
+</li>
 
+@endforeach
 
+                </ul>
 
-
-            </ul>
-                <div class="lodmore"><button class="btn-view btn-load-more"></button></div>
-              </div>
-              <div class="tab-pane fade" id="frends-req" >
-                <ul class="nearby-contct">
-                    @if (session('info'))
-                        <h1>{{session('info')}}</h1>
-                    @endif
-                    @if ($profile->friends !== null)
-            @foreach ($profile->friends as $friend )
-                    @if ( $friend['status'] == 'pending' )
-
-                    @php
-                        $user2=User::find($friend['userid']);
-                    @endphp
-                <li>
-                    <div class="nearly-pepls">
-                        <figure>
-                            <a href="time-line.html" title=""><img src="{{asset('images/'.$user2->profile_image)}}" alt=""></a>
-                        </figure>
-                        <div class="pepl-info">
-                            <h4><a href="time-line.html" title="">{{$user2->name}}</a></h4>
-                            <span>{{$user2->email}}</span>
-                            <a href="{{ route('cancel', ['userid' => Auth::user()->id, 'userid2' => $user2->id]) }}" title="" class="add-butn more-action" data-ripple="">delete Request</a>
-                            <a href="{{ route('accept', ['userid' => Auth::user()->id, 'userid2' => $user2->id]) }}" title="" class="add-butn" data-ripple="">Confirm</a>
-                        </div>
-                    </div>
-                </li>
-                    @endif
-  @endforeach
-@endif
-
-
-
-
-            </ul>
-                  <button class="btn-view btn-load-more"></button>
-              </div>
             </div>
         </div>
     </div>
-</div><!-- centerl meta -->
+</div>
+
+
+
+
+
+
 
 @include('frontend.body.liftsidebar')
 </div>
@@ -209,4 +165,3 @@
 @section('footer')
 @include('frontend.body.footer')
 @endsection
-

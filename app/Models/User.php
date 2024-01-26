@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Post;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use App\Models\Post;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'uuid',
         'friends',
         'profile_image',
         'profile_cover',
@@ -32,6 +34,19 @@ class User extends Authenticatable
     }
     public function comments(){
         return $this->hasMany(Comment::class , 'userid','id');
+    }
+    public function friends()
+    {
+        return $this->HasMany(Friend::class);
+    }
+
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class);
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
     /**
      * The attributes that should be hidden for serialization.

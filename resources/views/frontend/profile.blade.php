@@ -104,6 +104,8 @@
                                 <a class="" href="{{route('friends',['userid'=> $profile->id])}}" title="" data-ripple="">Friends</a>
                                 @endif
                                 <a class="" href="#" title="" data-ripple="">about</a>
+                                <a class="" href="{{route('group.index')}}" title="" data-ripple="">groups</a>
+                                <a class="" href="{{route('chat.index',['userid'=>$profile->id])}}" title="" data-ripple="">messeges</a>
 
                             </li>
                         </ul>
